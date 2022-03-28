@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  webservergo:
+    build: .
+    ports:
+      - "8888:8080"
+
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/usr/share/nginx/html
+
+  redis:
+    image: redis:alpine
+    expose:
+      - 6379
+    depends_on:
+      - webservergo
